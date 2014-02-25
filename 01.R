@@ -75,3 +75,6 @@ for (i in 1:641){
 data <- data.frame(t=t[,1],estimate=estMul,prob=apply(t,1,function(x) pmnorm(x,rep(0,3),diag(rep(1,3)))))
 data <- melt(data,id="t")
 ggplot(data,aes(t,value,colour=variable))+geom_line()+ggtitle("Trimatis atvejis")
+
+
+### versija 1.0.0 tampa 1.0.1
