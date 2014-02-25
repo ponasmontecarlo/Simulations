@@ -78,3 +78,4 @@ ggplot(data,aes(t,value,colour=variable))+geom_line()+ggtitle("Trimatis atvejis"
 
 
 ### versija 1.0.0 tampa 1.0.1
+### versija 1.0.1 tampa 1.0.2
