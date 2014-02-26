@@ -32,6 +32,18 @@ data <- melt(data,id="t")
 ggplot(data,aes(t,value,colour=variable))+geom_line()+ggtitle("Vienmatis atvejis")
 
 
+#dispersija
+SE <- sqrt(((t-est)^2)/n)
+data <- data.frame(t=t,estimate=est,prob=pnorm(t),se1=2*SE+est,se2=-2*SE+est)
+data <- melt(data,id="t")
+ggplot(data,aes(t,value,colour=variable))+geom_line()+ggtitle("Vienmatis atvejis su dispersija")
+#arba
+SE2 <- (pnorm(t)*(1-pnorm(t)))/n
+data <- data.frame(t=t,estimate=est,prob=pnorm(t),se1=3*SE2+est,se2=-3*SE2+est)
+data <- melt(data,id="t")
+ggplot(data,aes(t,value,colour=variable))+geom_line()+ggtitle("Vienmatis atvejis su dispersija: bandymas 2")
+
+
 ######## multivariate #######
 
 # 2-dimensial
