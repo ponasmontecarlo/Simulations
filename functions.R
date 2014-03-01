@@ -1,7 +1,7 @@
 # Skirta aproksimuoti vienmaèio normaliojo standartinio tikimybes
 # siuo atveju kaskart perrinka nauja a.d. rinkini
 # input: iteracijø skaièius ir reikðmë
-# output: tikimybë
+# output: tikimybë 
 univariateNormalStandard <- function(n,t){
   X <- rnorm(n)
   return(mean(X<t))
