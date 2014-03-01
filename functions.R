@@ -10,7 +10,7 @@ univariateNormalStandard <- function(n,t){
 
 # Skirta aproksimuoti vienmaèio normaliojo standartinio tikimybes
 # nuo pirmo skirias, jog siuo atveju duodam viena rinkini a.d. ir pagal ji aproksimuoja
-# input: sugeneruota a.d. aibe ir reikðmë
+# input: sugeneruota a.d. realizacijos ir reikðmë
 # output: tikimybë
 univariateNormalStandard2 <- function(X,t){
   return(mean(X<t))
@@ -26,6 +26,15 @@ multivariateNormalStandard <- function(n,t){
   mu <- rep(0,m)
   varcov <- diag(rep(1,m))
   X <- rmnorm(n,mu,varcov)
-  sum(apply(X<t,1,all))/n
+  #sum(apply(X<t,1,all))/n
   return(sum(apply(X<unlist(t),1,all))/n)
+}
+
+# Suskaiciuoja dispersija pagal second approach ivercius
+# kiekvienai reiksmei suskaiciuoja jos dispersija
+# neaisku ar reikia kiekvienai, bet tarkim
+# input: kiek a.d. generuot, X - a.d. realizacijos, t - tikroji reiksme, ets- ivertis
+# output: grazina dispersija kiekvienai reiksmei
+varUniNormStand <- function(n,X,t,est) {
+  return((sum(((X<t)*1-est)^2))/(n^2))
 }
