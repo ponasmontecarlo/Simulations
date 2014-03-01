@@ -29,3 +29,17 @@ multivariateNormalStandard <- function(n,t){
   sum(apply(X<t,1,all))/n
   return(sum(apply(X<unlist(t),1,all))/n)
 }
+
+# su viena fiksuota t reikðme didinam n (iteracijø) kieká
+# ir þiûrim kaip keièiasi aproksimuota jos tikimybë
+# n -> inf, t -> tikra tikimybës reikðmë 
+#input: n - iteracijø skaièius (skaièiuojama su visais skirtingais skaièiais 1:n), t - reiksme
+#output: aproksimuotø tikimybiø su skirtingais n vektorius
+
+risingNunivariateNormalStandard  <- function(n,t){
+  m <- c()
+  for (i in 1:n){
+    m[i] <- univariateNormalStandard(i,t)  
+  }
+  return(m)
+}
