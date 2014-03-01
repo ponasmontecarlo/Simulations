@@ -38,3 +38,17 @@ multivariateNormalStandard <- function(n,t){
 varUniNormStand <- function(n,X,t,est) {
   return((sum(((X<t)*1-est)^2))/(n^2))
 }
+
+# su viena fiksuota t reikðme didinam n (iteracijø) kieká
+# ir þiûrim kaip keièiasi aproksimuota jos tikimybë
+# n -> inf, t -> tikra tikimybës reikðmë 
+#input: n - iteracijø skaièius (skaièiuojama su visais skirtingais skaièiais 1:n), t - reiksme
+#output: aproksimuotø tikimybiø su skirtingais n vektorius
+
+risingNunivariateNormalStandard  <- function(n,t){
+  m <- c()
+  for (i in 1:n){
+    m[i] <- univariateNormalStandard(i,t)  
+  }
+  return(m)
+}
