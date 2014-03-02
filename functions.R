@@ -41,7 +41,7 @@ varUniNormStand <- function(n,X,t,est) {
 
 # su viena fiksuota t reikðme didinam n (iteracijø) kieká
 # ir þiûrim kaip keièiasi aproksimuota jos tikimybë
-# n -> inf, t -> tikra tikimybës reikðmë 
+# n -> inf, est -> tikra tikimybës reikðmë 
 #input: n - iteracijø skaièius (skaièiuojama su visais skirtingais skaièiais 1:n), t - reiksme
 #output: aproksimuotø tikimybiø su skirtingais n vektorius
 
