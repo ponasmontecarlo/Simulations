@@ -5,8 +5,6 @@ library(ggplot2)
 ##### UNIVARIATE
 ################
 
-##### simulations
-
 n <- 1000 # realizacijø skaièius
 df <- 1 # degrees of freedom
 X <- rt(n,df) # a.d. realiacijos
@@ -29,5 +27,27 @@ dataUni <- data.frame(t=t,estimate=est,prob=p,
 dataUni <- melt(dataUni,id=c("t","low","high"))
 ggplot(dataUni,aes(t,value,colour=variable))+geom_line()+
   geom_ribbon(aes(ymin=low,ymax=high),fill="yellow",colour=NA,alpha=0.5)+
-  ggtitle("Vienmaèio pasiskirstymo f-ja")
+  ggtitle("Vienmaèio pasiskirstymo f-ja su 2 SE")
+
+###############
+##### BIVARIATE
+###############
+
+n <- 1000 # realizacijø skaièius
+df <- 1 # degrees of freedom
+sigma <- diag(2) # kovariaciju matrica
+mu <- rep(0,2) # vidurkiu vektorius
+X <- rmt(n,mu,sigma,df) # a.d. realizacijos
+t <- data.frame(t1=seq(-3.2,3.2,0.01),t2=seq(-3.2,3.2,0.01)) # reiksmes
+
+estBi <- rep(NA,641)
+
+for (i in 1:641) {
+  estBi[i] <- tMultivariate(X,t[i,],n)
+}
+
+dataBi <- data.frame(t=t[,1],estimate=estBi,prob=apply(t,1,function(x) pmt(x,mu,sigma,df)))
+dataBi <- melt(dataBi,id="t")
+ggplot(dataBi,aes(t,value,colour=variable))+geom_line()+ggtitle("Bivariate t-distribution")
+
 
