@@ -18,3 +18,15 @@ tUnivariate <- function(X,t) {
 tUnivariateVar <- function(n,X,t,est) {
   return((sum(((X<t)*1-est)^2))/(n^2))
 }
+
+#################
+#### MULTIVARIATE
+#################
+
+# suskaiciuoja daugiamciu atveju
+# input: a.d. realizaciju matrica, reiksmiu vektorius ir realizaciju sk
+# output: tikimybes ivertis
+
+tMultivariate <- function(X,t,n){
+  return(sum(apply(X<unlist(t),1,all))/n)
+}
