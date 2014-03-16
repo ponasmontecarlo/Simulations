@@ -29,6 +29,11 @@ ggplot(dataUni,aes(t,value,colour=variable))+geom_line()+
   geom_ribbon(aes(ymin=low,ymax=high),fill="yellow",colour=NA,alpha=0.5)+
   ggtitle("Vienmaèio pasiskirstymo f-ja su 2 SE")
 
+
+### Table for univariate
+
+
+
 ###############
 ##### BIVARIATE
 ###############
