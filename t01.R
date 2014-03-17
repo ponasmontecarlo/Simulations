@@ -52,6 +52,7 @@ xtable(final,digits=4)
 
 #### N vs var
 # !!! BEWARE OF HUGE LAG !!!!
+# LAG LEVEL OVER 9000
 # ~4-5gb of ram needed
 resVar=matrix(0,ncol=7,nrow=9)
 for (i in 2:9) {
@@ -63,8 +64,27 @@ finalVar <- matrix(as.numeric(format(resVar[1:8,],digits=3)),ncol=7)
 finalVar <- data.frame(finalVar)
 finalVar <- cbind(N,finalVar)
 colnames(finalVar) <- c("N",t)
-rownames(final) <- NULL
-xtable(final,digits=4)
+rownames(finalVar) <- NULL
+xtable(finalVar,display=c(rep("e",9)))
+
+#### N vs df
+df <- c(1,2,5,10,25,50,120,Inf)
+resDf=matrix(0,ncol=7,nrow=8)
+X <- sapply(df,function(x) rt(100000,x))
+for (i in 2:9) {
+  for (j in 1:7) {
+    resDf[i-1,j]=mean(X[,i-1]<t[j])
+  }
+}
+finalDf <- matrix(as.numeric(format(resDf,digits=3)),ncol=7)
+finalDf <- rbind(finalDf,sapply(t,function(x) mean(rnorm(100000)<x)))
+finalDf <- data.frame(finalDf)
+finalDf <- cbind(c(df,"normal.stand"),finalDf)
+colnames(finalDf) <- c("DF",t)
+rownames(finalDf) <- NULL
+xtable(finalDf,digits=4)
+
+
 ###############
 ##### BIVARIATE
 ###############
