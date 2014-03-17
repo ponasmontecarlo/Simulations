@@ -31,9 +31,40 @@ ggplot(dataUni,aes(t,value,colour=variable))+geom_line()+
 
 
 ### Table for univariate
+### N vs t
+N <- c(10,100,1000,10000,100000,1000000,10000000,100000000)
+X <- rt(100000000,1)
+t <- c(-3.2,-1,0,0.5,1,2,3.2)
 
+res=matrix(0,ncol=7,nrow=9)
+for (i in 2:9) {
+   for (j in 1:7) {
+    res[i-1,j]=mean(X[1:N[i-1]]<t[j])
+   }
+}
+res[9,] <- pt(t,1)
+final <- matrix(as.numeric(format(res,digits=3)),ncol=7)
+final <- data.frame(final)
+final <- cbind(c(N,"Tikroji"),final)
+colnames(final) <- c("N",t)
+rownames(final) <- NULL
+xtable(final,digits=4)
 
-
+#### N vs var
+# !!! BEWARE OF HUGE LAG !!!!
+# ~4-5gb of ram needed
+resVar=matrix(0,ncol=7,nrow=9)
+for (i in 2:9) {
+  for (j in 1:7) {
+    resVar[i-1,j]=tUnivariateVar(N[i-1],X[1:N[i-1]],t[j],res[i-1,j])
+  }
+}
+finalVar <- matrix(as.numeric(format(resVar[1:8,],digits=3)),ncol=7)
+finalVar <- data.frame(finalVar)
+finalVar <- cbind(N,finalVar)
+colnames(finalVar) <- c("N",t)
+rownames(final) <- NULL
+xtable(final,digits=4)
 ###############
 ##### BIVARIATE
 ###############
