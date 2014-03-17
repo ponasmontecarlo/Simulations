@@ -1,6 +1,7 @@
 library(mvtnorm)
 library(reshape2)
 library(ggplot2)
+library(xtable)
 ################
 ##### UNIVARIATE
 ################
