@@ -1,7 +1,11 @@
 library(Matrix)
 library(mnormt)
 
-
+#$\hat{p}_{AT}$
+#M - Monte Carlo simuliacijø skaièius
+#mu - vidurkiø vektorius
+#sigma - kovariacijø matrica
+#t - ieðkomø tikimybiø vektorius
 
 p_AT <- function(M,mu,sigma,t){
   n  <- length(t)
@@ -23,6 +27,8 @@ p_AT <- function(M,mu,sigma,t){
   return((plus + minus)/(2*M))
 }
 
+
+# test
 M  <- 20000
 mu  <-c(0,0,0)
 sigma  <- diag(1,3)
@@ -31,9 +37,5 @@ t <- c(0.5,0.5,0.5)
 result  <- p_AT(M,mu,sigma,t)
 pmnorm(t,mu,sigma)
 
-
-
-#m <- matrix(c(4,12,-16,12,37,-43,-16,-43,98),nrow=3) 
-#L=t(chol(m))
 
 
