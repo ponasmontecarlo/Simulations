@@ -26,8 +26,9 @@ sum=0
 # k - laisves laipsniai
 # j - radius skaicius(kiekis)
 radius <- function(k,j){
-  chi <- c()
+ c hi <- c()
   for (i in 1:j){
+    sum = 0
     t <- rnorm(k,0,1)
     for (h in 1:k){
       sum  =  sum + t[h]^2
@@ -61,15 +62,15 @@ for(i in 1:M){
 
 d=3
 k=d
-M=1
-n=10
+M=5000
+n=100
 sigma  <- diag(1,d)
 mu <- rep(0,d)
-
+t <- C(0.5,0.5,0.5)
 
 L  <- t(chol(sigma))
 unit <- unitV(n,d)
-
+x_sum <- c(data=NA)
 
 for (i in 1:M){
   ortho <- orthoT(d)
@@ -80,7 +81,8 @@ for (i in 1:M){
     z[j,] <- r[j]*as.matrix(ortho)%*%cbind(as.vector(unit[j,]))
     x[j,]  <- rbind(mu + as.matrix(L)%*%cbind(as.vector(z[j,])))
   }
+  x_sum[i]  <- sum(apply(x<unlist(t),1,all))
 }
 
-
-
+sum <- sum(x_sum)/(M*n)
+sum
