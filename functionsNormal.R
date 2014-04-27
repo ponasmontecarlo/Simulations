@@ -1,7 +1,7 @@
 # Skirta aproksimuoti vienmaèio normaliojo standartinio tikimybes
 # siuo atveju kaskart perrinka nauja a.d. rinkini
 # input: iteracijø skaièius ir reikðmë
-# output: tikimybë
+# output: tikimybë 
 univariateNormalStandard <- function(n,t){
   X <- rnorm(n)
   return(mean(X<t))
@@ -10,7 +10,7 @@ univariateNormalStandard <- function(n,t){
 
 # Skirta aproksimuoti vienmaèio normaliojo standartinio tikimybes
 # nuo pirmo skirias, jog siuo atveju duodam viena rinkini a.d. ir pagal ji aproksimuoja
-# input: sugeneruota a.d. aibe ir reikðmë
+# input: sugeneruota a.d. realizacijos ir reikðmë
 # output: tikimybë
 univariateNormalStandard2 <- function(X,t){
   return(mean(X<t))
@@ -26,13 +26,28 @@ multivariateNormalStandard <- function(n,t){
   mu <- rep(0,m)
   varcov <- diag(rep(1,m))
   X <- rmnorm(n,mu,varcov)
-  sum(apply(X<t,1,all))/n
+  #sum(apply(X<t,1,all))/n
   return(sum(apply(X<unlist(t),1,all))/n)
+}
+
+<<<<<<< HEAD:functions.R
+# su viena fiksuota t reikðme didinam n (iteracijø) kieká
+# ir þiûrim kaip keièiasi aproksimuota jos tikimybë
+# n -> inf, t -> tikra tikimybës reikðmë 
+=======
+# Suskaiciuoja dispersija pagal second approach ivercius
+# kiekvienai reiksmei suskaiciuoja jos dispersija
+# neaisku ar reikia kiekvienai, bet tarkim
+# input: kiek a.d. generuot, X - a.d. realizacijos, t - tikroji reiksme, ets- ivertis
+# output: grazina dispersija kiekvienai reiksmei
+varUniNormStand <- function(n,X,t,est) {
+  return((sum(((X<t)*1-est)^2))/(n^2))
 }
 
 # su viena fiksuota t reikðme didinam n (iteracijø) kieká
 # ir þiûrim kaip keièiasi aproksimuota jos tikimybë
-# n -> inf, t -> tikra tikimybës reikðmë 
+# n -> inf, est -> tikra tikimybës reikðmë 
+>>>>>>> 6ece7bb0e38a3ebd189729070a41fd7c5e82880a:functionsNormal.R
 #input: n - iteracijø skaièius (skaièiuojama su visais skirtingais skaièiais 1:n), t - reiksme
 #output: aproksimuotø tikimybiø su skirtingais n vektorius
 
