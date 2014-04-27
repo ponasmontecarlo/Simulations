@@ -62,11 +62,11 @@ for(i in 1:M){
 
 d=3
 k=d
-M=5000
+M=1000
 n=100
 sigma  <- diag(1,d)
 mu <- rep(0,d)
-t <- C(0.5,0.5,0.5)
+t <- c(0.5,0.5,0.5)
 
 L  <- t(chol(sigma))
 unit <- unitV(n,d)
