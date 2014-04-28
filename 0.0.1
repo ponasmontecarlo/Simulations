@@ -1,0 +1,93 @@
+import numpy as np
+import scipy, math
+from scipy.stats import chi
+
+
+#multivariate crude estimate
+def multiNormalCrude(n, t, mu, sigma):
+    r = np.random.multivariate_normal(mu, sigma, n)
+    d = 0
+    for x in r:
+        if all(x<t):
+            d += 1
+    return d/n
+
+
+# multivariate AT estimator
+def multiNormalAT(n, t, mu, sigma):
+    mu = np.array(mu)
+    d = len(t) # dimensija pagal kuria kuriam vidurkius ir kovariacija
+
+    zeros = np.zeros(d)
+    identity = np.identity(d)
+
+    z = np.random.multivariate_normal(zeros,identity,n) # generuojam atsitiktinius dydzius
+
+    gamma = np.linalg.cholesky(sigma)
+
+    xPositive = [mu + (np.dot(gamma,elem)).T for elem in z]
+    xNegative = [mu - (np.dot(gamma,elem)).T for elem in z]
+
+    dPositive = 0
+    dNegative = 0
+    for x in xPositive:
+        if all(x<t):
+            dPositive += 1
+
+    for x in xNegative:
+        if all(x<t):
+            dNegative += 1
+
+    return (dPositive+dNegative)/(2*n)
+
+
+# T orthogonal matrix
+# d - dimension
+# m - montecarlo itterations number
+def orthoT(d):
+    a = np.random.rand(d, d)# for run in range(0, m)]
+    b = scipy.linalg.qr(a)[0]# for matrix in a] # gram schmidt
+    return b
+
+# central symmetric subset V
+# d - dimension
+# n - |V|
+def unitVectors(d, n):
+    X = [np.random.normal(0, 1, d) for x in range(0, n)]
+    R = [(math.sqrt(sum([elem**2 for elem in xCord]))) for xCord in X]
+    for i in range(0,n):
+        X[i] = X[i]/R[i]
+    return np.array(X)
+
+# random chi
+# d - dimension
+# n - |V|
+# m - montecarlo itterations number
+def radius(d, n):
+    rv = chi.rvs(d, 0, 1, n) #for x in range(0,n)] #for y in range(0,m)
+    return rv
+
+
+# z values
+def pV(M,d,n,t,mu,sigma):
+    k = []
+    for i in range(0,M):
+        r = radius(d, n)
+        T = orthoT(d)
+        v = unitVectors(d, n)
+
+        z = []
+        for i in range(0,n):
+            c = np.matrix(v[i]).T
+            z.append(r[i]*T*c)
+
+        gamma = np.linalg.cholesky(sigma)
+        x = [np.array(mu + (np.dot(gamma,elem)).T) for elem in z]
+
+        win = 0
+        for i in range(0,n):
+            if (np.all(x[i]<t)):
+                win += 1
+
+            k.append(win)
+    return sum(k)/(M*n)
