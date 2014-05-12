@@ -29,7 +29,7 @@ p_AT <- function(M,mu,sigma,t){
 
 
 # test
-M  <- 20000
+M  <- 10000
 mu  <-c(0,0,0)
 sigma  <- diag(1,3)
 t <- c(0.5,0.5,0.5)
@@ -37,5 +37,5 @@ t <- c(0.5,0.5,0.5)
 result  <- p_AT(M,mu,sigma,t)
 pmnorm(t,mu,sigma)
 
-
+result
 

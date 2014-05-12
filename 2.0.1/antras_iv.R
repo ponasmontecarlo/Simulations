@@ -86,3 +86,4 @@ for (i in 1:M){
 
 sum <- sum(x_sum)/(M*n)
 sum
+
